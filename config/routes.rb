@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :annotations, except: [:new, :edit]
+
+  match "*all" => "application#cors_preflight_check", via: [:options], constraints: { method: "OPTIONS" }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
