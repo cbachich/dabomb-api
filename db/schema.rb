@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912064256) do
+ActiveRecord::Schema.define(version: 20140912182855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,10 @@ ActiveRecord::Schema.define(version: 20140912064256) do
   create_table "annotations", force: true do |t|
     t.integer  "start_video"
     t.integer  "end_video"
-    t.string   "text"
-    t.boolean  "active"
-    t.boolean  "display"
-    t.string   "top_align"
-    t.string   "left_align"
-    t.string   "color"
+    t.string   "text",        default: "Enter annotation here..."
+    t.string   "top_align",   default: "40%"
+    t.string   "left_align",  default: "35%"
+    t.string   "color",       default: "#CC46EB"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
