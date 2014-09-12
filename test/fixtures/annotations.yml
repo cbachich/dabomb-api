@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_video: 1
+  end_video: 1
+  text: MyString
+  active: false
+  display: false
+  top_align: MyString
+  left_align: MyString
+  color: MyString
+
+two:
+  start_video: 1
+  end_video: 1
+  text: MyString
+  active: false
+  display: false
+  top_align: MyString
+  left_align: MyString
+  color: MyString
