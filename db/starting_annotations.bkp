@@ -1,0 +1,151 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: annotations; Type: TABLE; Schema: public; Owner: cbachich; Tablespace: 
+--
+
+CREATE TABLE annotations (
+    id integer NOT NULL,
+    start_video integer,
+    end_video integer,
+    text character varying(255) DEFAULT 'Enter annotation here...'::character varying,
+    top_align character varying(255) DEFAULT '40%'::character varying,
+    left_align character varying(255) DEFAULT '35%'::character varying,
+    color character varying(255) DEFAULT '#CC46EB'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.annotations OWNER TO cbachich;
+
+--
+-- Name: annotations_id_seq; Type: SEQUENCE; Schema: public; Owner: cbachich
+--
+
+CREATE SEQUENCE annotations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.annotations_id_seq OWNER TO cbachich;
+
+--
+-- Name: annotations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: cbachich
+--
+
+ALTER SEQUENCE annotations_id_seq OWNED BY annotations.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: cbachich; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO cbachich;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: cbachich
+--
+
+ALTER TABLE ONLY annotations ALTER COLUMN id SET DEFAULT nextval('annotations_id_seq'::regclass);
+
+
+--
+-- Data for Name: annotations; Type: TABLE DATA; Schema: public; Owner: cbachich
+--
+
+COPY annotations (id, start_video, end_video, text, top_align, left_align, color, created_at, updated_at) FROM stdin;
+1	1	7	A custom video player with annotations	40%	35%	#CC46EB	2014-09-12 06:47:38.507378	2014-09-12 06:47:38.507378
+2	10	25	Click the pencil icon to edit the annotation text and font color	263.796875px	330px	#10B5FF	2014-09-12 06:50:56.784617	2014-09-13 05:38:34.43608
+5	31	51	Feel free to drag the annotations wherever you like on the video	23.796875px	254px	#10B5FF	2014-09-12 06:54:49.192669	2014-09-13 05:38:34.46829
+15	31	51	All your changes are done locally until you select the 'Save to Server' button	249.390625px	415px	#ff00CC	2014-09-12 19:30:35.125294	2014-09-13 05:38:34.483214
+29	31	51	Hit the 'Sync from Server' button to pull annotations from the server	246.59375px	51.75px	#CC46EB	2014-09-13 05:38:34.495035	2014-09-13 05:38:34.495035
+3	10	25	Click the trash button to remove an annotation	177px	69px	#670CE8	2014-09-12 06:52:52.656599	2014-09-13 01:40:53.882114
+4	10	25	Click the 'Add annotation' button to add more annotations	33px	327px	#E88F0C	2014-09-12 06:54:07.672555	2014-09-13 01:40:53.918618
+\.
+
+
+--
+-- Name: annotations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: cbachich
+--
+
+SELECT pg_catalog.setval('annotations_id_seq', 29, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: cbachich
+--
+
+COPY schema_migrations (version) FROM stdin;
+20140912064256
+20140912181934
+20140912182855
+\.
+
+
+--
+-- Name: annotations_pkey; Type: CONSTRAINT; Schema: public; Owner: cbachich; Tablespace: 
+--
+
+ALTER TABLE ONLY annotations
+    ADD CONSTRAINT annotations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: cbachich; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: cbachich
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM cbachich;
+GRANT ALL ON SCHEMA public TO cbachich;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
