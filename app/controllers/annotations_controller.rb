@@ -2,7 +2,7 @@ class AnnotationsController < ApplicationController
   # GET /annotations
   # GET /annotations.json
   def index
-    @annotations = Annotation.all
+    @annotations = Annotation.order(:start_video)
 
     render json: @annotations
   end
@@ -18,7 +18,7 @@ class AnnotationsController < ApplicationController
   # POST /annotations
   # POST /annotations.json
   def create
-    @annotation = Annotation.new(params[:annotation].permit(:start_video,:end_video))
+    @annotation = Annotation.new(params[:annotation].permit(:start_video, :end_video, :text, :top_align, :left_align, :color))
 
     if @annotation.save
       render json: @annotation, status: :created, location: @annotation
@@ -32,7 +32,7 @@ class AnnotationsController < ApplicationController
   def update
     @annotation = Annotation.find(params[:id])
 
-    if @annotation.update(params[:annotation])
+    if @annotation.update(params[:annotation].permit(:start_video, :end_video, :text, :top_align, :left_align, :color))
       head :no_content
     else
       render json: @annotation.errors, status: :unprocessable_entity
